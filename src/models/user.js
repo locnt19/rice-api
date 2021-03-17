@@ -13,18 +13,19 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true
+      lowercase: true,
+      trim: true
     },
     password: {
       type: String,
       required: true,
-      minLength: 5
+      trim: true,
+      minLength: process.env.PASSWORD_MIN_LENGTH
     },
-    permission: [
-      {
-        role: String
-      }
-    ],
+    permission: {
+      type: [String],
+      default: ["normal"]
+    },
     avatar: {
       type: String
     },
@@ -39,13 +40,20 @@ const userSchema = new mongoose.Schema(
 userSchema.pre("save", function (next) {
   if (this.isModified("password")) {
     bcrypt
-      .hash(this.password, process.env.SALT || 10)
-      .then(passwordIsEncrypted => {
-        this.password = passwordIsEncrypted;
-        next();
+      .genSalt(parseInt(process.env.SALT))
+      .then(salt => {
+        bcrypt
+          .hash(this.password, salt)
+          .then(passwordIsEncrypted => {
+            this.password = passwordIsEncrypted;
+            next();
+          })
+          .catch(error => {
+            throw new Error(constant.ERROR.FIELD.PASSWORD_ENCRYPTION_FAILED);
+          });
       })
       .catch(error => {
-        throw new Error(constant.ERROR.FIELD.PASSWORD_ENCRYPTION_FAILED);
+        throw new Error(constant.ERROR.FIELD.GENERATE_SALT_FAILED);
       });
   }
 });
