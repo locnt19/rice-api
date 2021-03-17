@@ -9,6 +9,9 @@ const CONSTANT = {
       FIELD_NOT_FOUND: "{field} not found.",
       FIELD_INVALID: "{field} is not valid.",
       FIELD_REQUIRED: "{field} is required.",
+      FIELD_MIN_LENGTH: "The minimum length of {field} is {length}.",
+      FIELD_MAX_LENGTH: "The maximum length of {field} is {length}.",
+      GENERATE_SALT_FAILED: "Creating salt for password encryption failed.",
       DUPLICATE_EMAIL: "This email already exists.",
       INCORRECT_PASSWORD: "Incorrect password.",
       PASSWORD_ENCRYPTION_FAILED: "Password encryption failed."
