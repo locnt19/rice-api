@@ -1,0 +1,27 @@
+{
+  "response 200 get": {
+    "prefix": "res200get",
+    "body": "res.status(constant.STATUS.CODE_200).json({responseCode:constant.STATUS.CODE_200,data:${1}})${2}",
+    "description": "template for response 200 get method"
+  },
+  "response 200 post": {
+    "prefix": "res200post",
+    "body": "res.status(constant.STATUS.CODE_200).json({responseCode:constant.STATUS.CODE_200,message:constant.RESPONSE.MESSAGE_CREATED.replace('{document}','${1}')})${2}",
+    "description": "template for response 200 post method"
+  },
+  "response 201": {
+    "prefix": "res201",
+    "body": "res.status(constant.STATUS.CODE_201).json({responseCode:constant.STATUS.CODE_201,message:constant.RESPONSE.MESSAGE_CREATED.replace('{document}','${1}')})${2}",
+    "description": "template for response 201"
+  },
+  "response 400": {
+    "prefix": "res400",
+    "body": "res.status(constant.STATUS.CODE_400).json({responseCode:constant.STATUS.CODE_400,error:constant.ERROR.SOMETHING})${1}",
+    "description": "template for response 400"
+  },
+  "response 500": {
+    "prefix": "res500",
+    "body": "res.status(constant.STATUS.CODE_500).json({responseCode:constant.STATUS.CODE_500,error:constant.ERROR.SOMETHING})${2}",
+    "description": "template for response 500"
+  }
+}
