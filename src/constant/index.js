@@ -10,7 +10,8 @@ const CONSTANT = {
       FIELD_INVALID: "{field} is not valid.",
       FIELD_REQUIRED: "{field} is required.",
       DUPLICATE_EMAIL: "This email already exists.",
-      INCORRECT_PASSWORD: "Incorrect password."
+      INCORRECT_PASSWORD: "Incorrect password.",
+      PASSWORD_ENCRYPTION_FAILED: "Password encryption failed."
     },
     SOMETHING: "Something went wrong."
   },
