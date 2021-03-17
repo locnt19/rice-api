@@ -22,7 +22,10 @@ exports.createProductCategory = (req, res) => {
   if (!validator.isEmpty(productCategory.name)) {
     productCategory.save(err => {
       if (err) {
-        console.log(err);
+        res.status(constant.STATUS.CODE_500).json({
+          responseCode: constant.STATUS.CODE_500,
+          error: constant.ERROR.SOMETHING
+        });
       } else {
         res.status(constant.STATUS.CODE_201).json({
           responseCode: constant.STATUS.CODE_201,
@@ -47,7 +50,10 @@ exports.updateProductCategory = async (req, res) => {
       { name: req.body.name },
       error => {
         if (error) {
-          console.log(error);
+          res.status(constant.STATUS.CODE_500).json({
+            responseCode: constant.STATUS.CODE_500,
+            error: constant.ERROR.SOMETHING
+          });
         }
       }
     );
@@ -58,7 +64,7 @@ exports.updateProductCategory = async (req, res) => {
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
-      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "name")
+      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "id")
     });
   }
 };
@@ -69,7 +75,10 @@ exports.deleteProductCategory = async (req, res) => {
       { isDeleted: true },
       error => {
         if (error) {
-          console.log(error);
+          res.status(constant.STATUS.CODE_500).json({
+            responseCode: constant.STATUS.CODE_500,
+            error: constant.ERROR.SOMETHING
+          });
         }
       }
     );
