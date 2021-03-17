@@ -1,7 +1,10 @@
 const userController = require("./user");
+const productCategoryController = require("./product-category");
+
 
 const controller = {
-  userController
+  userController,
+  productCategoryController
 };
 
 module.exports = controller;
