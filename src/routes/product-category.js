@@ -1,4 +1,5 @@
 const router = require("express").Router();
+
 const { productCategoryController } = require("../controllers");
 
 router.get("", productCategoryController.findAll);

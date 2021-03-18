@@ -1,13 +1,13 @@
-const ProductCategory = require("../models/product-category");
+const ArticleCategory = require("../models/article-category");
 const constant = require("../constant");
 const validator = require("validator");
 
 exports.findAll = (req, res) => {
-  ProductCategory.find({isDeleted : false})
-    .then(productCategoryList =>
+  ArticleCategory.find({isDeleted : false})
+    .then(articleCategoryList =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,
-        data: productCategoryList
+        data: articleCategoryList
       })
     )
     .catch(error =>
@@ -18,8 +18,8 @@ exports.findAll = (req, res) => {
     );
 };
 
-exports.createProductCategory = (req, res) => {
-  const productCategory = new ProductCategory(req.body);
+exports.createArticleCategory = (req, res) => {
+  const productCategory = new ArticleCategory(req.body);
   if (!validator.isEmpty(productCategory.name)) {
     productCategory
       .save()
@@ -28,7 +28,7 @@ exports.createProductCategory = (req, res) => {
           responseCode: constant.STATUS.CODE_201,
           message: constant.RESPONSE.MESSAGE_CREATED.replace(
             "{document}",
-            "product category"
+            "article category"
           )
         })
       )
@@ -46,9 +46,9 @@ exports.createProductCategory = (req, res) => {
   }
 };
 
-exports.updateProductCategory = (req, res) => {
+exports.updateArticleCategory = (req, res) => {
   if (req.body.name) {
-    ProductCategory.findOneAndUpdate(
+    ArticleCategory.findOneAndUpdate(
       { _id: req.params.id },
       { name: req.body.name }
     )
@@ -72,9 +72,9 @@ exports.updateProductCategory = (req, res) => {
   }
 };
 
-exports.deleteProductCategory = (req, res) => {
+exports.deleteArticleCategory = (req, res) => {
   if (req.body.id) {
-    ProductCategory.findOneAndUpdate({ _id: req.body.id }, { isDeleted: true })
+    ArticleCategory.findOneAndUpdate({ _id: req.body.id }, { isDeleted: true })
       .then(() =>
         res.status(constant.STATUS.CODE_200).json({
           responseCode: constant.STATUS.CODE_200,
