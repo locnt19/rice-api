@@ -17,25 +17,27 @@ exports.findAll = (req, res) => {
       })
     );
 };
+
 exports.createProductCategory = (req, res) => {
   const productCategory = new ProductCategory(req.body);
   if (!validator.isEmpty(productCategory.name)) {
-    productCategory.save(err => {
-      if (err) {
-        res.status(constant.STATUS.CODE_500).json({
-          responseCode: constant.STATUS.CODE_500,
-          error: constant.ERROR.SOMETHING
-        });
-      } else {
+    productCategory
+      .save()
+      .then(() =>
         res.status(constant.STATUS.CODE_201).json({
           responseCode: constant.STATUS.CODE_201,
           message: constant.RESPONSE.MESSAGE_CREATED.replace(
             "{document}",
             "product category"
           )
-        });
-      }
-    });
+        })
+      )
+      .catch(error =>
+        res.status(constant.STATUS.CODE_500).json({
+          responseCode: constant.STATUS.CODE_500,
+          error: constant.ERROR.SOMETHING
+        })
+      );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
@@ -43,49 +45,48 @@ exports.createProductCategory = (req, res) => {
     });
   }
 };
-exports.updateProductCategory = async (req, res) => {
+
+exports.updateProductCategory = (req, res) => {
   if (req.body.name) {
-    await ProductCategory.findOneAndUpdate(
+    ProductCategory.findOneAndUpdate(
       { _id: req.params.id },
-      { name: req.body.name },
-      error => {
-        if (error) {
-          res.status(constant.STATUS.CODE_500).json({
-            responseCode: constant.STATUS.CODE_500,
-            error: constant.ERROR.SOMETHING
-          });
-        }
-      }
-    );
-    res.status(constant.STATUS.CODE_200).json({
-      responseCode: constant.STATUS.CODE_200,
-      message: constant.RESPONSE.MESSAGE_UPDATED
-    });
+      { name: req.body.name }
+    )
+      .then(() =>
+        res.status(constant.STATUS.CODE_200).json({
+          responseCode: constant.STATUS.CODE_200,
+          message: constant.RESPONSE.MESSAGE_UPDATED
+        })
+      )
+      .catch(error =>
+        res.status(constant.STATUS.CODE_500).json({
+          responseCode: constant.STATUS.CODE_500,
+          error: constant.ERROR.SOMETHING
+        })
+      );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
-      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "id")
+      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "name")
     });
   }
 };
-exports.deleteProductCategory = async (req, res) => {
+
+exports.deleteProductCategory = (req, res) => {
   if (req.body.id) {
-    await ProductCategory.findOneAndUpdate(
-      { _id: req.body.id },
-      { isDeleted: true },
-      error => {
-        if (error) {
-          res.status(constant.STATUS.CODE_500).json({
-            responseCode: constant.STATUS.CODE_500,
-            error: constant.ERROR.SOMETHING
-          });
-        }
-      }
-    );
-    res.status(constant.STATUS.CODE_200).json({
-      responseCode: constant.STATUS.CODE_200,
-      message: constant.RESPONSE.MESSAGE_DELETED
-    });
+    ProductCategory.findOneAndUpdate({ _id: req.body.id }, { isDeleted: true })
+      .then(() =>
+        res.status(constant.STATUS.CODE_200).json({
+          responseCode: constant.STATUS.CODE_200,
+          message: constant.RESPONSE.MESSAGE_DELETED
+        })
+      )
+      .catch(error =>
+        res.status(constant.STATUS.CODE_500).json({
+          responseCode: constant.STATUS.CODE_500,
+          error: constant.ERROR.SOMETHING
+        })
+      );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
