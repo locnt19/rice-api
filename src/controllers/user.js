@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const validator = require("validator");
 
 const User = require("../models/user");
@@ -93,7 +94,7 @@ exports.login = async (req, res) => {
 
               res.status(constant.STATUS.CODE_200).json({
                 responseCode: constant.STATUS.CODE_200,
-                data: { token }
+                data: [{ token_type: process.env.TOKEN_TYPE, token }]
               });
             } else {
               res.status(constant.STATUS.CODE_400).json({
@@ -112,8 +113,7 @@ exports.login = async (req, res) => {
       .catch(error => {
         res.status(constant.STATUS.CODE_400).json({
           responseCode: constant.STATUS.CODE_400,
-          error: [constant.ERROR.AUTHOR.NO_EXIST_USER],
-          data: error
+          error: [constant.ERROR.AUTHOR.NO_EXIST_USER]
         });
       });
   } else {
@@ -151,4 +151,43 @@ exports.login = async (req, res) => {
 
 exports.changePassword = (req, res) => {
   res.json(req.body);
+};
+
+exports.getMe = (req, res) => {
+  const token = req.headers.authorization?.split(" ");
+  if (token) {
+    if (token[0] === process.env.TOKEN_TYPE) {
+      try {
+        const verified = jwt.verify(token[1], process.env.SECRET_KEY);
+        User.findById(verified._id)
+          .select("-password -__v")
+          .then(user =>
+            res
+              .status(constant.STATUS.CODE_200)
+              .json({ responseCode: constant.STATUS.CODE_200, data: [user] })
+          )
+          .catch(error =>
+            res.status(constant.STATUS.CODE_500).json({
+              responseCode: constant.STATUS.CODE_500,
+              error: [constant.ERROR.SOMETHING]
+            })
+          );
+      } catch (error) {
+        res.status(constant.STATUS.CODE_400).json({
+          responseCode: constant.STATUS.CODE_400,
+          error: [constant.ERROR.AUTHOR.TOKEN_EXPIRED]
+        });
+      }
+    } else {
+      res.status(constant.STATUS.CODE_400).json({
+        responseCode: constant.STATUS.CODE_400,
+        error: [constant.ERROR.AUTHOR.INCORRECT_AUTHORIZATION_TYPE]
+      });
+    }
+  } else {
+    res.status(constant.STATUS.CODE_401).json({
+      responseCode: constant.STATUS.CODE_401,
+      error: [constant.ERROR.AUTHOR.NO_AUTHORIZATION]
+    });
+  }
 };

@@ -2,6 +2,8 @@ const CONSTANT = {
   ERROR: {
     AUTHOR: {
       NO_AUTHORIZATION: "Authorization is required.",
+      INCORRECT_AUTHORIZATION_TYPE: "Incorrect authorization type.",
+      TOKEN_EXPIRED: "Token has expired.",
       INVALID_CERTIFICATE: "Certificate is not valid.",
       UNAUTHORIZED: "Unauthorized.",
       NO_EXIST_USER: "User does not exist."
