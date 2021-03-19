@@ -19,9 +19,9 @@ exports.findAll = (req, res) => {
 };
 
 exports.createArticleCategory = (req, res) => {
-  const productCategory = new ArticleCategory(req.body);
-  if (!validator.isEmpty(productCategory.name)) {
-    productCategory
+  const articleCategory = new ArticleCategory(req.body);
+  if (!validator.isEmpty(articleCategory.name)) {
+    articleCategory
       .save()
       .then(() =>
         res.status(constant.STATUS.CODE_201).json({
