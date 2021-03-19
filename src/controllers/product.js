@@ -85,25 +85,46 @@ exports.findProductByFilter = (req, res) => {
 };
 
 exports.createProduct = (req, res) => {
-  const product = new Product(req.body);
-  product
-    .save()
-    .then(() =>
-      res.status(constant.STATUS.CODE_201).json({
-        responseCode: constant.STATUS.CODE_201,
-        message: constant.RESPONSE.MESSAGE_CREATED.replace(
-          "{document}",
-          "product"
-        )
-      })
-    )
-    .catch(error => {
-      const errorList = _.map(error.errors, "message");
-      res.status(constant.STATUS.CODE_500).json({
-        responseCode: constant.STATUS.CODE_500,
-        error: errorList
+  if (
+    validator.isNumeric(req.body.price) &&
+    validator.isNumeric(req.body.review)
+  ) {
+    const product = new Product(req.body);
+    product
+      .save()
+      .then(() =>
+        res.status(constant.STATUS.CODE_201).json({
+          responseCode: constant.STATUS.CODE_201,
+          message: constant.RESPONSE.MESSAGE_CREATED.replace(
+            "{document}",
+            "product"
+          )
+        })
+      )
+      .catch(error => {
+        const errorList = _.map(error.errors, "message");
+        res.status(constant.STATUS.CODE_500).json({
+          responseCode: constant.STATUS.CODE_500,
+          error: errorList
+        });
       });
+  } else {
+    const errorList = [];
+    if (!validator.isNumeric(req.body.price)) {
+      errorList.push(
+        constant.ERROR.FIELD.FIELD_REQUIRED_NUMBER.replace("{field}", "price ")
+      );
+    }
+    if (!validator.isNumeric(req.body.review)) {
+      errorList.push(
+        constant.ERROR.FIELD.FIELD_REQUIRED_NUMBER.replace("{field}", "review ")
+      );
+    }
+    res.status(constant.STATUS.CODE_400).json({
+      responseCode: constant.STATUS.CODE_400,
+      error: errorList
     });
+  }
 };
 
 exports.updateProduct = (req, res) => {

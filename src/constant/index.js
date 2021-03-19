@@ -15,7 +15,8 @@ const CONSTANT = {
       GENERATE_SALT_FAILED: "Creating salt for password encryption failed.",
       DUPLICATE_EMAIL: "This email already exists.",
       INCORRECT_PASSWORD: "Incorrect password.",
-      PASSWORD_ENCRYPTION_FAILED: "Password encryption failed."
+      PASSWORD_ENCRYPTION_FAILED: "Password encryption failed.",
+      FIELD_REQUIRED_NUMBER: "{field} is require a number."
     },
     SOMETHING: "Something went wrong."
   },

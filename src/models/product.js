@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const constant = require("../constant");
+const validator = require("validator");
 
 const productSchema = new mongoose.Schema(
   {
@@ -27,7 +28,9 @@ const productSchema = new mongoose.Schema(
       ],
       trim: true
     },
-    review: { type: Number },
+    review: {
+      type: Number
+    },
     bio: {
       type: String,
       required: [
