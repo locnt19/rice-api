@@ -16,12 +16,12 @@
   },
   "response 400": {
     "prefix": "res400",
-    "body": "res.status(constant.STATUS.CODE_400).json({responseCode:constant.STATUS.CODE_400,error:constant.ERROR.SOMETHING})${1}",
+    "body": "res.status(constant.STATUS.CODE_400).json({responseCode:constant.STATUS.CODE_400,error:[constant.ERROR.SOMETHING]})${1}",
     "description": "template for response 400"
   },
   "response 500": {
     "prefix": "res500",
-    "body": "res.status(constant.STATUS.CODE_500).json({responseCode:constant.STATUS.CODE_500,error:constant.ERROR.SOMETHING})${2}",
+    "body": "res.status(constant.STATUS.CODE_500).json({responseCode:constant.STATUS.CODE_500,error:[constant.ERROR.SOMETHING]})${2}",
     "description": "template for response 500"
   }
 }
