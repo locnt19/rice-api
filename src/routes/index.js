@@ -12,6 +12,8 @@ router.use("/product-category", productCategoryRoutes);
 router.use("/article-category", articleCategoryRoutes);
 router.use("/product", productRoutes);
 
+router.post("/login", userController.login);
 router.post("/register", userController.createUser);
+router.post("/delete/user/:id", userController.deleteUser);
 
 module.exports = router;

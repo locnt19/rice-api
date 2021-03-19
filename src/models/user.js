@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const validator = require("validator");
 const constant = require("../constant");
@@ -80,5 +81,14 @@ userSchema.pre("save", function (next) {
       });
   }
 });
+
+userSchema.methods.generateToken = function () {
+  const token = jwt.sign(
+    { _id: this._id, permission: this.permission },
+    process.env.SECRET_KEY,
+    { expiresIn: process.env.TOKEN_EXPIRES }
+  );
+  return token;
+};
 
 module.exports = mongoose.model("User", userSchema);

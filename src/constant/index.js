@@ -3,7 +3,8 @@ const CONSTANT = {
     AUTHOR: {
       NO_AUTHORIZATION: "Authorization is required.",
       INVALID_CERTIFICATE: "Certificate is not valid.",
-      UNAUTHORIZED: "Unauthorized."
+      UNAUTHORIZED: "Unauthorized.",
+      NO_EXIST_USER: "User does not exist."
     },
     FIELD: {
       FIELD_NOT_FOUND: "{field} not found.",
