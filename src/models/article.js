@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 const constant = require("../constant");
+
 const articleSchema = new mongoose.Schema(
   {
     name: {

@@ -1,7 +1,6 @@
 const Article = require("../models/article");
 const _ = require("lodash");
 const constant = require("../constant");
-const validator = require("validator");
 
 exports.findAll = (req, res) => {
   Article.find({ isDeleted: false })
@@ -14,7 +13,7 @@ exports.findAll = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
@@ -30,7 +29,7 @@ exports.findById = (req, res) => {
     .catch(error => {
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       });
     });
 };
@@ -48,7 +47,7 @@ exports.findLastedArticle = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
@@ -63,7 +62,7 @@ exports.findArticleByCategory = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
@@ -79,7 +78,7 @@ exports.findArticleByFilter = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
@@ -99,6 +98,7 @@ exports.createArticle = (req, res) => {
     )
     .catch(error => {
       const errorList = _.map(error.errors, "message");
+
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
         error: errorList
@@ -129,6 +129,7 @@ exports.updateArticle = (req, res) => {
     )
     .catch(error => {
       const errorList = _.map(error.errors, "message");
+
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
         error: errorList
@@ -148,13 +149,13 @@ exports.deleteArticle = (req, res) => {
       .catch(error =>
         res.status(constant.STATUS.CODE_500).json({
           responseCode: constant.STATUS.CODE_500,
-          error: constant.ERROR.SOMETHING
+          error: [constant.ERROR.SOMETHING]
         })
       );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
-      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "_id")
+      error: [constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "_id")]
     });
   }
 };

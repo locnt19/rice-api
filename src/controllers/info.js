@@ -14,7 +14,7 @@ exports.findAll = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
@@ -30,7 +30,7 @@ exports.createInfo = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
@@ -63,6 +63,7 @@ exports.updateInfo = (req, res) => {
       )
       .catch(error => {
         const errorList = _.map(error.errors, "message");
+
         res.status(constant.STATUS.CODE_500).json({
           responseCode: constant.STATUS.CODE_500,
           error: errorList
@@ -70,6 +71,7 @@ exports.updateInfo = (req, res) => {
       });
   } else {
     const errorList = [];
+
     if (!validator.isNumeric(req.body.hotline)) {
       errorList.push(
         constant.ERROR.FIELD.FIELD_REQUIRED_NUMBER.replace(
@@ -78,11 +80,13 @@ exports.updateInfo = (req, res) => {
         )
       );
     }
+
     if (!validator.isNumeric(req.body.phone)) {
       errorList.push(
         constant.ERROR.FIELD.FIELD_REQUIRED_NUMBER.replace("{field}", "phone ")
       );
     }
+
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
       error: errorList

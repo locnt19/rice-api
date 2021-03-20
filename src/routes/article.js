@@ -1,12 +1,6 @@
 const router = require("express").Router();
 
-const {
-  authorization,
-  isEditor,
-  isAdmin,
-  isEditorOrAdmin,
-  permissionIsOptional
-} = require("../middleware/auth");
+const { authorization, isAdmin } = require("../middleware/auth");
 
 const { articleController } = require("../controllers");
 

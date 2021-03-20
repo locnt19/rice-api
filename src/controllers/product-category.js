@@ -3,7 +3,7 @@ const constant = require("../constant");
 const validator = require("validator");
 
 exports.findAll = (req, res) => {
-  ProductCategory.find({isDeleted : false})
+  ProductCategory.find({ isDeleted: false })
     .then(productCategoryList =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,
@@ -13,13 +13,14 @@ exports.findAll = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
 
 exports.createProductCategory = (req, res) => {
   const productCategory = new ProductCategory(req.body);
+
   if (!validator.isEmpty(productCategory.name)) {
     productCategory
       .save()
@@ -35,13 +36,13 @@ exports.createProductCategory = (req, res) => {
       .catch(error =>
         res.status(constant.STATUS.CODE_500).json({
           responseCode: constant.STATUS.CODE_500,
-          error: constant.ERROR.SOMETHING
+          error: [constant.ERROR.SOMETHING]
         })
       );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
-      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "name")
+      error: [constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "name")]
     });
   }
 };
@@ -61,13 +62,13 @@ exports.updateProductCategory = (req, res) => {
       .catch(error =>
         res.status(constant.STATUS.CODE_500).json({
           responseCode: constant.STATUS.CODE_500,
-          error: constant.ERROR.SOMETHING
+          error: [constant.ERROR.SOMETHING]
         })
       );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
-      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "name")
+      error: [constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "name")]
     });
   }
 };
@@ -84,13 +85,13 @@ exports.deleteProductCategory = (req, res) => {
       .catch(error =>
         res.status(constant.STATUS.CODE_500).json({
           responseCode: constant.STATUS.CODE_500,
-          error: constant.ERROR.SOMETHING
+          error: [constant.ERROR.SOMETHING]
         })
       );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
-      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "_id")
+      error: [constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "_id")]
     });
   }
 };

@@ -3,7 +3,7 @@ const constant = require("../constant");
 const validator = require("validator");
 
 exports.findAll = (req, res) => {
-  ArticleCategory.find({isDeleted : false})
+  ArticleCategory.find({ isDeleted: false })
     .then(articleCategoryList =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,
@@ -13,7 +13,7 @@ exports.findAll = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
@@ -35,13 +35,13 @@ exports.createArticleCategory = (req, res) => {
       .catch(error =>
         res.status(constant.STATUS.CODE_500).json({
           responseCode: constant.STATUS.CODE_500,
-          error: constant.ERROR.SOMETHING
+          error: [constant.ERROR.SOMETHING]
         })
       );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
-      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "name")
+      error: [constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "name")]
     });
   }
 };
@@ -61,13 +61,13 @@ exports.updateArticleCategory = (req, res) => {
       .catch(error =>
         res.status(constant.STATUS.CODE_500).json({
           responseCode: constant.STATUS.CODE_500,
-          error: constant.ERROR.SOMETHING
+          error: [constant.ERROR.SOMETHING]
         })
       );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
-      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "name")
+      error: [constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "name")]
     });
   }
 };
@@ -84,13 +84,13 @@ exports.deleteArticleCategory = (req, res) => {
       .catch(error =>
         res.status(constant.STATUS.CODE_500).json({
           responseCode: constant.STATUS.CODE_500,
-          error: constant.ERROR.SOMETHING
+          error: [constant.ERROR.SOMETHING]
         })
       );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
-      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "_id")
+      error: [constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "_id")]
     });
   }
 };

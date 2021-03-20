@@ -1,13 +1,6 @@
 const router = require("express").Router();
 
-const {
-  authorization,
-  isEditor,
-  isAdmin,
-  isEditorOrAdmin,
-  permissionIsOptional
-} = require("../middleware/auth");
-
+const { authorization, isAdmin } = require("../middleware/auth");
 const { productCategoryController } = require("../controllers");
 
 router.get("", authorization, productCategoryController.findAll);

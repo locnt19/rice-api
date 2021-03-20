@@ -14,7 +14,7 @@ exports.findAll = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
@@ -30,7 +30,7 @@ exports.findById = (req, res) => {
     .catch(error => {
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       });
     });
 };
@@ -48,10 +48,11 @@ exports.findLastedProduct = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
+
 exports.findProductByCategory = (req, res) => {
   Product.find({ isDeleted: false, categoryID: req.params.id })
     .then(productList =>
@@ -63,7 +64,7 @@ exports.findProductByCategory = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
@@ -79,7 +80,7 @@ exports.findProductByFilter = (req, res) => {
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: constant.ERROR.SOMETHING
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
@@ -110,6 +111,7 @@ exports.createProduct = (req, res) => {
       });
   } else {
     const errorList = [];
+
     if (!validator.isNumeric(req.body.price)) {
       errorList.push(
         constant.ERROR.FIELD.FIELD_REQUIRED_NUMBER.replace("{field}", "price ")
@@ -169,13 +171,13 @@ exports.deleteProduct = (req, res) => {
       .catch(error =>
         res.status(constant.STATUS.CODE_500).json({
           responseCode: constant.STATUS.CODE_500,
-          error: constant.ERROR.SOMETHING
+          error: [constant.ERROR.SOMETHING]
         })
       );
   } else {
     res.status(constant.STATUS.CODE_400).json({
       responseCode: constant.STATUS.CODE_400,
-      error: constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "_id")
+      error: [constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "_id")]
     });
   }
 };
