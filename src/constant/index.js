@@ -4,8 +4,9 @@ const CONSTANT = {
       NO_AUTHORIZATION: "Authorization is required.",
       INCORRECT_AUTHORIZATION_TYPE: "Incorrect authorization type.",
       TOKEN_EXPIRED: "Token has expired.",
-      INVALID_CERTIFICATE: "Certificate is not valid.",
+      VERIFICATION_FAILED: "Certificate verification failed.",
       UNAUTHORIZED: "Unauthorized.",
+      FORBIDDEN: "You are not allowed to access this route..",
       NO_EXIST_USER: "User does not exist."
     },
     FIELD: {
@@ -18,6 +19,7 @@ const CONSTANT = {
       DUPLICATE_EMAIL: "This email already exists.",
       INCORRECT_PASSWORD: "Incorrect password.",
       PASSWORD_ENCRYPTION_FAILED: "Password encryption failed.",
+      PASSWORD_THE_SAME: "The old password and the new password are the same.",
       FIELD_REQUIRED_NUMBER: "{field} is require a number."
     },
     SOMETHING: "Something went wrong."
