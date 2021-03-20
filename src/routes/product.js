@@ -1,15 +1,27 @@
 const router = require("express").Router();
 
+const {
+  authorization,
+  isEditor,
+  isAdmin,
+  isEditorOrAdmin,
+  permissionIsOptional
+} = require("../middleware/auth");
+
 const { productController } = require("../controllers");
 
-router.get("", productController.findAll);
-router.get("/lasted", productController.findLastedProduct);
-router.get("/filter", productController.findProductByFilter)
-router.get("/by-category/:id", productController.findProductByCategory);
-router.get("/:id", productController.findById);
+router.get("", authorization, productController.findAll);
+router.get("/lasted", authorization, productController.findLastedProduct);
+router.get("/filter", authorization, productController.findProductByFilter);
+router.get(
+  "/by-category/:id",
+  authorization,
+  productController.findProductByCategory
+);
+router.get("/:id", authorization, productController.findById);
 
-router.post("", productController.createProduct);
-router.post("/delete", productController.deleteProduct);
-router.post("/:id", productController.updateProduct);
+router.post("", authorization, productController.createProduct);
+router.post("/delete", authorization, isAdmin, productController.deleteProduct);
+router.post("/:id", authorization, productController.updateProduct);
 
 module.exports = router;

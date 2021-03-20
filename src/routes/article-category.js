@@ -1,11 +1,28 @@
 const router = require("express").Router();
 
+const {
+  authorization,
+  isEditor,
+  isAdmin,
+  isEditorOrAdmin,
+  permissionIsOptional
+} = require("../middleware/auth");
+
 const { articleCategoryController } = require("../controllers");
 
-router.get("", articleCategoryController.findAll);
+router.get("", authorization, articleCategoryController.findAll);
 
-router.post("", articleCategoryController.createArticleCategory);
-router.post("/delete", articleCategoryController.deleteArticleCategory);
-router.post("/:id", articleCategoryController.updateArticleCategory);
+router.post("", authorization, articleCategoryController.createArticleCategory);
+router.post(
+  "/delete",
+  authorization,
+  isAdmin,
+  articleCategoryController.deleteArticleCategory
+);
+router.post(
+  "/:id",
+  authorization,
+  articleCategoryController.updateArticleCategory
+);
 
 module.exports = router;
