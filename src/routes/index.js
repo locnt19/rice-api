@@ -1,6 +1,12 @@
 const router = require("express").Router();
 
-const { authorization, isAdmin } = require("../middleware/auth");
+const {
+  authorization,
+  isEditor,
+  isAdmin,
+  isEditorOrAdmin,
+  permissionIsOptional
+} = require("../middleware/auth");
 
 const { userController } = require("../controllers");
 
@@ -12,11 +18,16 @@ router.use("/product-category", productCategoryRoutes);
 router.use("/article-category", articleCategoryRoutes);
 router.use("/product", productRoutes);
 
-router.get("/user", userController.findWithQuery);
+router.get(
+  "/user",
+  authorization,
+  isEditorOrAdmin,
+  userController.findWithQuery
+);
 router.get("/me", authorization, userController.getMe);
 
 router.post("/login", userController.login);
-router.post("/register", userController.createUser);
+router.post("/register", permissionIsOptional, userController.createUser);
 router.post(
   "/delete/user/:id",
   authorization,

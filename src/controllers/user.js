@@ -26,8 +26,11 @@ exports.findWithQuery = (req, res) => {
 
 exports.createUser = (req, res) => {
   const user = new User(req.body);
+  const { _userAccess } = req.body;
 
-  //TODO: check perrsion creator when set user.permission
+  if (_userAccess && _userAccess.permission !== "admin") {
+    user.permission = "guest";
+  }
 
   user
     .save()
