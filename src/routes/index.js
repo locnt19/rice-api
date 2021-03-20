@@ -2,7 +2,6 @@ const router = require("express").Router();
 
 const {
   authorization,
-  isEditor,
   isAdmin,
   isEditorOrAdmin,
   permissionIsOptional
@@ -14,11 +13,13 @@ const productCategoryRoutes = require("./product-category");
 const articleCategoryRoutes = require("./article-category");
 const productRoutes = require("./product");
 const fileRoutes = require("./file");
+const meRoutes = require("./me");
 
 router.use("/product-category", productCategoryRoutes);
 router.use("/article-category", articleCategoryRoutes);
 router.use("/product", productRoutes);
 router.use("/file", fileRoutes);
+router.use("/me", meRoutes);
 
 router.get(
   "/user",
@@ -26,9 +27,7 @@ router.get(
   isEditorOrAdmin,
   userController.findWithQuery
 );
-router.get("/me", authorization, userController.getMe);
 
-router.post("/me", authorization, userController.updateUser);
 router.post("/login", userController.login);
 router.post("/register", permissionIsOptional, userController.createUser);
 router.post(
@@ -36,11 +35,6 @@ router.post(
   authorization,
   isAdmin,
   userController.deleteUser
-);
-router.post(
-  "/me/change-password",
-  authorization,
-  userController.changePassword
 );
 
 module.exports = router;
