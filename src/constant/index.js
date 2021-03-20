@@ -20,7 +20,8 @@ const CONSTANT = {
       INCORRECT_PASSWORD: "Incorrect password.",
       PASSWORD_ENCRYPTION_FAILED: "Password encryption failed.",
       PASSWORD_THE_SAME: "The old password and the new password are the same.",
-      FIELD_REQUIRED_NUMBER: "{field} is require a number."
+      FIELD_REQUIRED_NUMBER: "{field} is require a number.",
+      NO_FILE_SELECTED: "No files have been selected."
     },
     SOMETHING: "Something went wrong."
   },

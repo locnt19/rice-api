@@ -13,10 +13,12 @@ const { userController } = require("../controllers");
 const productCategoryRoutes = require("./product-category");
 const articleCategoryRoutes = require("./article-category");
 const productRoutes = require("./product");
+const fileRoutes = require("./file");
 
 router.use("/product-category", productCategoryRoutes);
 router.use("/article-category", articleCategoryRoutes);
 router.use("/product", productRoutes);
+router.use("/file", fileRoutes);
 
 router.get(
   "/user",

@@ -30,7 +30,10 @@ app.use(cookieParser());
 app.use(cors());
 
 // public static file
-app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  process.env.PUBLIC_STATIC_FILE,
+  express.static(path.join(__dirname, process.env.PUBLIC_STATIC_FILE))
+);
 
 // configure routes
 app.use(routes);
