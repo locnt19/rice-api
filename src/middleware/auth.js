@@ -55,3 +55,48 @@ exports.isAdmin = (req, res, next) => {
     });
   }
 };
+
+exports.isEditor = (req, res, next) => {
+  const { _userAccess } = req.body;
+  if (_userAccess.permission === "editor") {
+    next();
+  } else {
+    res.status(constant.STATUS.CODE_403).json({
+      responseCode: constant.STATUS.CODE_403,
+      error: [constant.ERROR.AUTHOR.FORBIDDEN]
+    });
+  }
+};
+
+exports.isEditorOrAdmin = (req, res, next) => {
+  const { _userAccess } = req.body;
+  if (
+    _userAccess.permission === "editor" ||
+    _userAccess.permission === "admin"
+  ) {
+    next();
+  } else {
+    res.status(constant.STATUS.CODE_403).json({
+      responseCode: constant.STATUS.CODE_403,
+      error: [constant.ERROR.AUTHOR.FORBIDDEN]
+    });
+  }
+};
+
+exports.permissionIsOptional = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ");
+  try {
+    const verified = jwt.verify(token[1], process.env.SECRET_KEY);
+    User.findById(verified._id)
+      .select("-password -__v")
+      .then(user => {
+        req.body._userAccess = {
+          _id: user._id,
+          permission: user.permission
+        };
+        next();
+      });
+  } catch (error) {
+    next();
+  }
+};
