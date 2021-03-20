@@ -4,7 +4,7 @@ const articleCategoryController = require("./article-category");
 const productController = require("./product");
 const articleController = require("./article");
 const infoController = require("./info");
-
+const fileController = require("./file");
 
 const controller = {
   userController,
@@ -12,7 +12,8 @@ const controller = {
   articleCategoryController,
   productController,
   articleController,
-  infoController
+  infoController,
+  fileController
 };
 
 module.exports = controller;

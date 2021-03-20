@@ -50,6 +50,47 @@ exports.createUser = (req, res) => {
     });
 };
 
+exports.updateUser = (req, res) => {
+  const { _userAccess, _id, name, avatar, permission, isDeleted } = req.body;
+
+  const newUpdateUser = { name, avatar, permission, isDeleted };
+
+  if (!newUpdateUser.name) {
+    delete newUpdateUser.name;
+  }
+
+  if (!newUpdateUser.avatar) {
+    delete newUpdateUser.avatar;
+  }
+
+  if (!newUpdateUser.permission) {
+    delete newUpdateUser.permission;
+  }
+
+  if (!newUpdateUser.isDeleted) {
+    delete newUpdateUser.isDeleted;
+  }
+
+  if (_userAccess.permission !== "admin") {
+    delete newUpdateUser.permission;
+    delete newUpdateUser.isDeleted;
+  }
+
+  User.findOneAndUpdate({ _id }, newUpdateUser)
+    .then(() =>
+      res.status(constant.STATUS.CODE_200).json({
+        responseCode: constant.STATUS.CODE_200,
+        message: constant.RESPONSE.MESSAGE_UPDATED.replace("{document}", "user")
+      })
+    )
+    .catch(error =>
+      res.status(constant.STATUS.CODE_500).json({
+        responseCode: constant.STATUS.CODE_500,
+        error: [constant.RESPONSE.UPDATE_FAILED.replace("{document}", "user")]
+      })
+    );
+};
+
 exports.deleteUser = (req, res) => {
   User.findByIdAndUpdate({ _id: req.params.id }, { $set: { isDeleted: true } })
     .then(result =>
