@@ -6,7 +6,7 @@ const CONSTANT = {
       TOKEN_EXPIRED: "Token has expired.",
       VERIFICATION_FAILED: "Certificate verification failed.",
       UNAUTHORIZED: "Unauthorized.",
-      FORBIDDEN: "You are not allowed to access this route..",
+      FORBIDDEN: "You are not allowed to access this route.",
       NO_EXIST_USER: "User does not exist."
     },
     FIELD: {
@@ -38,7 +38,11 @@ const CONSTANT = {
     MESSAGE_CREATED: "Create a new {document} successfully.",
     MESSAGE_UPDATED: "Updated {document} successful.",
     MESSAGE_DELETED: "Deleted {document} successful.",
-    MESSAGE_NOT_FOUND: "{document} not found."
+    MESSAGE_NOT_FOUND: "{document} not found.",
+    CREATE_FAILED:
+      "Creating a new {document} was unsuccessful. Please try again later.",
+    UPDATE_FAILED: "Updated {document} unsuccessful. Please try again later.",
+    DELETE_FAILED: "Deleted {document} unsuccessful. Please try again later."
   }
 };
 
