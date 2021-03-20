@@ -26,6 +26,7 @@ router.get(
 );
 router.get("/me", authorization, userController.getMe);
 
+router.post("/me", authorization, userController.updateUser);
 router.post("/login", userController.login);
 router.post("/register", permissionIsOptional, userController.createUser);
 router.post(
