@@ -1,11 +1,6 @@
 const router = require("express").Router();
 
-const {
-  authorization,
-  isAdmin,
-  isEditorOrAdmin,
-  permissionIsOptional
-} = require("../middleware/auth");
+const { permissionIsOptional } = require("../middleware/auth");
 
 const { userController } = require("../controllers");
 
@@ -14,6 +9,7 @@ const articleCategoryRoutes = require("./article-category");
 const productRoutes = require("./product");
 const articleRoutes = require("./article");
 const infoRoutes = require("./info");
+const userRoutes = require("./user");
 const fileRoutes = require("./file");
 const meRoutes = require("./me");
 
@@ -24,21 +20,9 @@ router.use("/article", articleRoutes);
 router.use("/info", infoRoutes);
 router.use("/file", fileRoutes);
 router.use("/me", meRoutes);
-
-router.get(
-  "/user",
-  authorization,
-  isEditorOrAdmin,
-  userController.findWithQuery
-);
+router.use("/user", userRoutes);
 
 router.post("/login", userController.login);
 router.post("/register", permissionIsOptional, userController.createUser);
-router.post(
-  "/delete/user/:id",
-  authorization,
-  isAdmin,
-  userController.deleteUser
-);
 
 module.exports = router;
