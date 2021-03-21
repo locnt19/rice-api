@@ -137,7 +137,7 @@ exports.login = async (req, res) => {
 
               res.status(constant.STATUS.CODE_200).json({
                 responseCode: constant.STATUS.CODE_200,
-                data: [{ token_type: process.env.TOKEN_TYPE, token }]
+                data: [{ token_type: process.env.TOKEN_TYPE, token, user }]
               });
             } else {
               res.status(constant.STATUS.CODE_400).json({
