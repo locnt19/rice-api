@@ -29,7 +29,7 @@ exports.uploadFile = (req, res) => {
       if (files && files.length > 0) {
         files.map(file =>
           fileModel.push(
-            new File({ path: `${file.destination}/${file.filename}` })
+            new File({ path: `/${file.destination}/${file.filename}` })
           )
         );
 
