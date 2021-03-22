@@ -107,17 +107,16 @@ exports.createArticle = (req, res) => {
 };
 
 exports.updateArticle = (req, res) => {
-  Article.findOneAndUpdate(
-    { _id: req.params.id },
-    {
-      name: req.body.name,
-      categoryID: req.body.categoryID,
-      price: req.body.price,
-      review: req.body.review,
-      bio: req.body.bio,
-      status: req.body.status
-    }
-  )
+  const { name, postID, bio, content, avatar } = req.body;
+
+  const newUpdateArticle = {
+    name,
+    postID,
+    bio,
+    content,
+    avatar
+  };
+  Article.findOneAndUpdate({ _id: req.params.id }, newUpdateArticle)
     .then(() =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,

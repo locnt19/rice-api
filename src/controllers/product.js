@@ -130,17 +130,60 @@ exports.createProduct = (req, res) => {
 };
 
 exports.updateProduct = (req, res) => {
-  Product.findOneAndUpdate(
-    { _id: req.params.id },
-    {
-      name: req.body.name,
-      categoryID: req.body.categoryID,
-      price: req.body.price,
-      review: req.body.review,
-      bio: req.body.bio,
-      status: req.body.status
-    }
-  )
+  const {
+    name,
+    categoryID,
+    price,
+    review,
+    bio,
+    status,
+    avatar,
+    images
+  } = req.body;
+
+  const newUpdateUser = {
+    name,
+    categoryID,
+    price,
+    review,
+    bio,
+    status,
+    avatar,
+    images
+  };
+
+  if (!newUpdateUser.name) {
+    delete newUpdateUser.name;
+  }
+
+  if (!newUpdateUser.categoryID) {
+    delete newUpdateUser.categoryID;
+  }
+
+  if (!newUpdateUser.price) {
+    delete newUpdateUser.price;
+  }
+
+  if (!newUpdateUser.review) {
+    delete newUpdateUser.review;
+  }
+  if (!newUpdateUser.bio) {
+    delete newUpdateUser.bio;
+  }
+
+  if (!newUpdateUser.status) {
+    delete newUpdateUser.status;
+  }
+
+  if (!newUpdateUser.avatar) {
+    delete newUpdateUser.avatar;
+  }
+
+  if (!newUpdateUser.images) {
+    delete newUpdateUser.images;
+  }
+
+  Product.findOneAndUpdate({ _id: req.params.id }, newUpdateUser)
     .then(() =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,

@@ -35,23 +35,32 @@ exports.createInfo = (req, res) => {
     );
 };
 exports.updateInfo = (req, res) => {
+  const {
+    logo,
+    address,
+    email,
+    hotline,
+    phone,
+    facebook,
+    twitter,
+    website
+  } = req.body;
+
+  const newUpdateInfo = {
+    logo,
+    address,
+    email,
+    hotline,
+    phone,
+    facebook,
+    twitter,
+    website
+  };
   if (
     validator.isNumeric(req.body.hotline) &&
     validator.isNumeric(req.body.phone)
   ) {
-    Info.findOneAndUpdate(
-      { infoID: 1 },
-      {
-        logo: req.body.logo,
-        address: req.body.address,
-        email: req.body.email,
-        hotline: req.body.hotline,
-        phone: req.body.phone,
-        facebook: req.body.facebook,
-        twitter: req.body.twitter,
-        website: req.body.website
-      }
-    )
+    Info.findOneAndUpdate({ infoID: 1 }, newUpdateInfo)
       .then(() =>
         res.status(constant.STATUS.CODE_200).json({
           responseCode: constant.STATUS.CODE_200,
@@ -63,7 +72,6 @@ exports.updateInfo = (req, res) => {
       )
       .catch(error => {
         const errorList = _.map(error.errors, "message");
-
         res.status(constant.STATUS.CODE_500).json({
           responseCode: constant.STATUS.CODE_500,
           error: errorList
