@@ -20,7 +20,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findById = (req, res) => {
-  Product.findOne({ id: req.body.id })
+  Product.findOne({ _id: req.params.id })
     .then(productList =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,

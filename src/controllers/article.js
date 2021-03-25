@@ -19,7 +19,7 @@ exports.findAll = (req, res) => {
 };
 
 exports.findById = (req, res) => {
-  Article.findOne({ id: req.body.id })
+  Article.findOne({ _id: req.params.id })
     .then(articleList =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,
@@ -137,6 +137,7 @@ exports.updateArticle = (req, res) => {
 };
 
 exports.deleteArticle = (req, res) => {
+  console.log(req.body);
   if (req.body.id) {
     Article.findOneAndUpdate({ _id: req.body.id }, { isDeleted: true })
       .then(() =>
