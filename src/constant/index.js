@@ -23,7 +23,8 @@ const CONSTANT = {
       FIELD_REQUIRED_NUMBER: "{field} is require a number.",
       NO_FILE_SELECTED: "No files have been selected."
     },
-    SOMETHING: "Something went wrong."
+    SOMETHING: "Something went wrong.",
+    ERROR_001: "ERROR_001" // Token has expired
   },
   STATUS: {
     CODE_200: 200, // OK

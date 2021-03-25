@@ -27,6 +27,7 @@ exports.authorization = (req, res, next) => {
       } catch (error) {
         res.status(constant.STATUS.CODE_400).json({
           responseCode: constant.STATUS.CODE_400,
+          errorCode: constant.ERROR.ERROR_001,
           error: [constant.ERROR.AUTHOR.TOKEN_EXPIRED]
         });
       }
