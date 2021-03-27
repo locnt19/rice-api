@@ -40,7 +40,8 @@ exports.uploadFile = (req, res) => {
               message: constant.RESPONSE.MESSAGE_CREATED.replace(
                 "{document}",
                 "file"
-              )
+              ),
+              data: result
             })
           )
           .catch(error =>
