@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const validator = require("validator");
 const constant = require("../constant");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const userSchema = new mongoose.Schema(
   {
@@ -90,5 +91,7 @@ userSchema.methods.generateToken = function () {
   );
   return token;
 };
+
+userSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("User", userSchema);

@@ -8,18 +8,29 @@ const constant = require("../constant");
 exports.findWithQuery = (req, res) => {
   delete req.query.password;
 
-  User.find(req.query)
-    .select("-password -__v")
-    .then(userList =>
+  const page = req.query.page || 1;
+
+  delete req.query.page;
+
+  const options = {
+    page,
+    select: "-password -__v",
+    sort: { _id: 1 },
+    limit: 10
+  };
+
+  User.paginate(req.query, options)
+    .then(result => {
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,
-        data: userList
-      })
-    )
+        data: result.docs,
+        pagination: { ...result, docs: undefined }
+      });
+    })
     .catch(error =>
       res.status(constant.STATUS.CODE_500).json({
         responseCode: constant.STATUS.CODE_500,
-        error: [constants.ERROR.SOMETHING]
+        error: [constant.ERROR.SOMETHING]
       })
     );
 };
