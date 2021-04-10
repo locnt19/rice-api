@@ -68,7 +68,9 @@ exports.findArticleByCategory = (req, res) => {
 };
 
 exports.findArticleByFilter = (req, res) => {
-  Article.find(req.query)
+  const isDeleted = { isDeleted: false };
+  const query = {...req.query, ...isDeleted}
+  Article.find(query)
     .then(articleList =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,

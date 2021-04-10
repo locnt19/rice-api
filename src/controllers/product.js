@@ -70,7 +70,9 @@ exports.findProductByCategory = (req, res) => {
 };
 
 exports.findProductByFilter = (req, res) => {
-  Product.find(req.query)
+  const isDeleted = { isDeleted: false };
+  const query = {...req.query, ...isDeleted}
+  Product.find(query)
     .then(productList =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,
