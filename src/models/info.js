@@ -38,7 +38,7 @@ const infoSchema = new mongoose.Schema(
       trim: true
     },
     hotline: {
-      type: Number,
+      type: String,
       required: [
         true,
         constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "hotline")
@@ -46,7 +46,7 @@ const infoSchema = new mongoose.Schema(
       trim: true
     },
     phone: {
-      type: Number,
+      type: String,
       required: [
         true,
         constant.ERROR.FIELD.FIELD_REQUIRED.replace("{field}", "phone")
