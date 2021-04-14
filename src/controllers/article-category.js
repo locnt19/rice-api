@@ -55,7 +55,10 @@ exports.updateArticleCategory = (req, res) => {
       .then(() =>
         res.status(constant.STATUS.CODE_200).json({
           responseCode: constant.STATUS.CODE_200,
-          message: constant.RESPONSE.MESSAGE_UPDATED
+          message: constant.RESPONSE.MESSAGE_UPDATED.replace(
+            "{document}",
+            "article category"
+          )
         })
       )
       .catch(error =>
@@ -78,7 +81,10 @@ exports.deleteArticleCategory = (req, res) => {
       .then(() =>
         res.status(constant.STATUS.CODE_200).json({
           responseCode: constant.STATUS.CODE_200,
-          message: constant.RESPONSE.MESSAGE_DELETED
+          message: constant.RESPONSE.MESSAGE_DELETED.replace(
+            "{document}",
+            "article category"
+          )
         })
       )
       .catch(error =>

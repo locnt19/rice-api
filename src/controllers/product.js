@@ -71,7 +71,7 @@ exports.findProductByCategory = (req, res) => {
 
 exports.findProductByFilter = (req, res) => {
   const isDeleted = { isDeleted: false };
-  const query = {...req.query, ...isDeleted}
+  const query = { ...req.query, ...isDeleted };
   Product.find(query)
     .then(productList =>
       res.status(constant.STATUS.CODE_200).json({
@@ -210,7 +210,10 @@ exports.deleteProduct = (req, res) => {
       .then(() =>
         res.status(constant.STATUS.CODE_200).json({
           responseCode: constant.STATUS.CODE_200,
-          message: constant.RESPONSE.MESSAGE_DELETED
+          message: constant.RESPONSE.MESSAGE_DELETED.replace(
+            "{document}",
+            "product"
+          )
         })
       )
       .catch(error =>
