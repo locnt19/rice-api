@@ -4,11 +4,20 @@ const constant = require("../constant");
 const validator = require("validator");
 
 exports.findAll = (req, res) => {
-  Product.find({ isDeleted: false })
+  const page = req.query.page || 1;
+
+  const options = {
+    page,
+    sort: { _id: 1 },
+    limit: 10
+  };
+
+  Product.paginate({ isDeleted: false }, options)
     .then(productList =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,
-        data: productList
+        data: productList.docs,
+        pagination: { ...productList, docs: undefined }
       })
     )
     .catch(error =>

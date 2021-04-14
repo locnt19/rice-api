@@ -3,11 +3,20 @@ const _ = require("lodash");
 const constant = require("../constant");
 
 exports.findAll = (req, res) => {
-  Article.find({ isDeleted: false })
+  const page = req.query.page || 1;
+
+  const options = {
+    page,
+    sort: { _id: 1 },
+    limit: 10
+  };
+
+  Article.paginate({ isDeleted: false }, options)
     .then(articleList =>
       res.status(constant.STATUS.CODE_200).json({
         responseCode: constant.STATUS.CODE_200,
-        data: articleList
+        data: articleList.docs,
+        pagination: { ...articleList, docs: undefined }
       })
     )
     .catch(error =>
@@ -69,7 +78,7 @@ exports.findArticleByCategory = (req, res) => {
 
 exports.findArticleByFilter = (req, res) => {
   const isDeleted = { isDeleted: false };
-  const query = {...req.query, ...isDeleted}
+  const query = { ...req.query, ...isDeleted };
   Article.find(query)
     .then(articleList =>
       res.status(constant.STATUS.CODE_200).json({
